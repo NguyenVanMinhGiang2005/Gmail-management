@@ -18,7 +18,7 @@
 - Vite for build tooling
 - Tailwind CSS for styling
 
----
+
 ## Getting Started
 
 ### Prerequisites
