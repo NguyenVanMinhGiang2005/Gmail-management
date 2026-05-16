@@ -45,23 +45,3 @@ bun run dev
 ```
 
 The frontend will be available at `http://localhost:8080`
-
-### Frontend Setup
-
-Using npm:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Using Bun:
-
-```bash
-cd frontend
-bun install
-bun run dev
-```
-
-The frontend will be available at `http://localhost:8080`
