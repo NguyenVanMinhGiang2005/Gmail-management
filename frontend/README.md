@@ -14,10 +14,11 @@
 ### Prerequisites
 - Node.js 18+ or Bun
 - Python ### Frontend
-- React 18.3 with TypeScript
+- React 24.15.0 with TypeScript
 - Vite for build tooling
 - Tailwind CSS for styling
 
+---
 ## Getting Started
 
 ### Prerequisites
