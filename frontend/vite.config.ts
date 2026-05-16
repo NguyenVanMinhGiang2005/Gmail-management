@@ -12,6 +12,11 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss()
   ],
+  server: {
+    host: '127.0.0.1', // Cho phép truy cập qua mạng cục bộ (LAN) hoặc địa chỉ IP
+    port: 8080,      // Đổi port mặc định thành 3000
+    open: true,      // Tự động mở trình duyệt khi chạy server
+  },
   resolve: {
     alias: {
       // Maps '@' to the 'src' directory
