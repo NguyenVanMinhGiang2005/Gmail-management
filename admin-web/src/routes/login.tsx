@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Shield } from "lucide-react";
+import { useState } from "react";
 import Button from '@mui/material/Button';
 
 
@@ -33,6 +34,7 @@ async function loginAdmin(email: string, password: string): Promise<LoginRequest
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,8 +46,10 @@ function LoginPage() {
       navigate({ to: "/admin" });
     } catch (error) {
       console.error("Login failed:", error);
+      setError("Email hoặc mật khẩu không đúng.");
     }
   }
+
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-background">
       <div className="hidden lg:flex flex-col justify-between bg-sidebar text-sidebar-foreground p-12">
@@ -70,9 +74,9 @@ function LoginPage() {
             Đăng nhập
           </h1>
           <h4 className="mt-1 text-sm text-muted-foreground">
-            Chào mừng quay lại.
+            Chào mừng quay lại làm việc.
           </h4>
-          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="mt-2 mb-4 flex items-center gap-3 text-xs text-muted-foreground">
             <div className="h-px flex-1 bg-border" />
           </div>
 
@@ -88,6 +92,13 @@ function LoginPage() {
               <input id="password" name="password" type="password" required minLength={6} 
               className="flex h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base focus-visible:outline-none"
               />
+            </div >
+            <div>
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                  <strong className="font-bold">{error}</strong>
+                </div>
+              )}
             </div>
             <Button className="w-full" type="submit" variant="contained" sx={{ backgroundColor: 'var(--primary)'}}
             >

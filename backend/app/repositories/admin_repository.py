@@ -39,3 +39,8 @@ def create_admin(
 
     return admin
 
+def get_all_admin(db: Session):
+    return db.query(Admin).all()
+
+def get_admin_by_id(db: Session, admin_id: int):
+    return db.query(Admin).filter(Admin.id == admin_id).first()

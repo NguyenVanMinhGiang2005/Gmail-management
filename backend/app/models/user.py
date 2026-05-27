@@ -13,3 +13,5 @@ class User(Base):
     role = Column(String(50), default="user")
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=False), server_default=func.now())
+
+

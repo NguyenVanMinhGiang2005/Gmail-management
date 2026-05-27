@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from app.api.v1.router import api_router
 from app.core.database import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.v1.router import api_router
 from app.api.admin.router import api_router_admin
+from app.middlewares.auth_middleware import AuthMiddleware
 
 
 Base.metadata.create_all(bind=engine)
@@ -26,6 +27,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(AuthMiddleware)
 
 app.include_router(api_router, prefix="/api/v1")
 app.include_router(api_router_admin, prefix="/api/admin")

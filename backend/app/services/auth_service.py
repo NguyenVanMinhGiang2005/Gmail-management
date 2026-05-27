@@ -65,7 +65,8 @@ class AuthServiceAdmin:
         
         return {
             "message": "Login successfully",
-            "token": generate_token
+            "accessToken": generate_token["token"],
+            "tokenType": "bearer"
         }
 
     def register_admin(self, data: RegisterRequestAdmin, db: Session):

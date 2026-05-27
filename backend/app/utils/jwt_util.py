@@ -46,11 +46,11 @@ def generate_jwt_admin(user_id, email, permissions, algorithm="HS256", expiry_mi
     }
     
     token = jwt.encode(payload, config.SECRET_KEY_ADMIN, algorithm=algorithm)
-    decode = jwt.decode(token, config.SECRET_KEY_ADMIN, algorithms=["HS256"])
+    # decode = jwt.decode(token, config.SECRET_KEY_ADMIN, algorithms=["HS256"])
     return {
         "token": token,
-        "token_sub": decode.get("user_id"),  # Thời gian hết hạn tính bằng giây
-        "management" : decode.get("permissions").get("management")
+        # "token_sub": decode.get("user_id"),  # Thời gian hết hạn tính bằng giây
+        # "management" : decode.get("permissions").get("management")
     }
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/admin/auth/login")
