@@ -1,0 +1,108 @@
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Shield } from "lucide-react";
+import Button from '@mui/material/Button';
+
+
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+});
+
+
+interface LoginRequestAdmin {
+  email: string;
+  password: string;
+}
+
+async function loginAdmin(email: string, password: string): Promise<LoginRequestAdmin> {
+  const timelogin = new Date().toISOString();
+  const response = await fetch('http://127.0.0.1:8080/api/admin/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password, timelogin }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  console.log('Login response:', response);
+  if (!response.ok) throw new Error('Đăng nhập thất bại');
+
+  const data = await response.json();
+  
+  // Lưu token vào localStorage
+  localStorage.setItem('accessToken', data.accessToken);
+  
+  return data;
+}
+
+function LoginPage() {
+  const navigate = useNavigate();
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    try {
+      await loginAdmin(email, password);
+      navigate({ to: "/admin" });
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  }
+  return (
+    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
+      <div className="hidden lg:flex flex-col justify-between bg-sidebar text-sidebar-foreground p-12">
+        <Link to="/" className="flex items-center gap-2">
+          <Shield className="h-5 w-5" />
+          <span className="font-display text-lg font-semibold">Steel Admin</span>
+        </Link>
+        <div>
+          <h2 className="font-display text-3xl font-bold leading-tight">
+            "Một console gọn, nhanh, đủ quyền cho team vận hành."
+          </h2>
+          <p className="mt-4 text-sm text-sidebar-foreground/70">
+            Quản lý người dùng, phân quyền, và Gmail — không phức tạp.
+          </p>
+        </div>
+        <span className="text-xs text-sidebar-foreground/50">© Steel Admin</span>
+      </div>
+
+      <div className="flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-sm">
+          <h1 className="font-display text-2xl font-bold">
+            Đăng nhập
+          </h1>
+          <h4 className="mt-1 text-sm text-muted-foreground">
+            Chào mừng quay lại.
+          </h4>
+          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+            <div className="h-px flex-1 bg-border" />
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <h4 className="font-display text-14px font-bold">Email</h4>
+              <input id="email" name="email" type="email" required 
+              className="flex h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base focus-visible:outline-none"
+              />
+            </div>
+            <div>
+              <h4 className="font-display text-14px font-bold">Mật khẩu</h4>
+              <input id="password" name="password" type="password" required minLength={6} 
+              className="flex h-11 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base focus-visible:outline-none"
+              />
+            </div>
+            <Button className="w-full" type="submit" variant="contained" sx={{ backgroundColor: 'var(--primary)'}}
+            >
+              Đăng nhập
+            </Button>
+          </form>
+
+          <p className="mt-6 text-sm text-muted-foreground text-center">
+            Chưa có tài khoản ?
+            <a className="text-foreground font-medium hover:underline">
+              Liên hệ nhân sự
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
