@@ -16,6 +16,9 @@ export const Route = createFileRoute("/admin/administrator")({
   component: AdminUsers,
 });
 
+
+
+
 function AdminUsers() {
   return (
     // Thay đổi 1: Bỏ max-w-6xl để bảng giãn rộng toàn màn hình

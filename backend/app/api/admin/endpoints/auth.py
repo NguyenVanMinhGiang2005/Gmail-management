@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.schemas.auth_schema import LoginRequestAdmin, RegisterRequestAdmin
 from app.services.auth_service import AuthServiceAdmin
+from app.utils.jwt_util import get_current_admin
 
 
 router = APIRouter()
@@ -23,4 +24,9 @@ def login_admin(data: LoginRequestAdmin, db: Session = Depends(get_db)):
 @router.post("/register")
 def register_admin(data: RegisterRequestAdmin, db: Session = Depends(get_db)):
     return AuthServiceAdmin().register_admin(data, db)
+
+@router.post('/checkinfotoken')
+def checkinfotoken(token) -> int:
+    return get_current_admin()
+
 
