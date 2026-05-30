@@ -1,0 +1,25 @@
+.
+ |-- public
+ | |-- favicon.svg
+ | |-- icons.svg
+ |-- package.json
+ |-- vite.config.ts
+ |-- bun.lock
+ |-- index.html
+ |-- src
+ | |-- assets
+ | | |-- react.svg
+ | | |-- vite.svg
+ | | |-- hero.png
+ | |-- components
+ | |-- pages
+ | | |-- NotFound.tsx
+ | |-- main.tsx
+ | |-- index.css
+ | |-- App.tsx
+ |-- tsconfig.app.json
+ |-- eslint.config.js
+ |-- tsconfig.json
+ |-- README.md
+ |-- folder_tree.txt
+ |-- tsconfig.node.json
